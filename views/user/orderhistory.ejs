@@ -1,0 +1,57 @@
+<%- include('../layouts/header.ejs') %>
+
+
+<%- include('../layouts/nav-user.ejs') %>
+
+<div class="jumbotron">
+  
+  <% let totalPrice = 0;%>
+<div class="row">
+    <div class="col-md-12 order-md-1">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Order history</span>
+            <span class="badge badge-secondary badge-pill">Total Price</span>
+          </h4>
+          <ul class="list-group mb-3">
+              <% for( let order of userOrder) { let totalPrice = 0;%>
+              
+             
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h4 class="my-0">Order# <%= order._id %>  </h4>
+                <h6 class="my-0">Orderd at <%= order.orderedAt %> </h6>
+                <% for( let orderItem of order.products ) { %>
+                    <small>Product name <%= orderItem.product.title%> <strong>(<%= orderItem.product.quantity%>)</strong></small><br>
+                    <small>Product price <strong> $<%= orderItem.product.price%></strong></small><br>
+                <% 
+            totalPrice += orderItem.product.price*orderItem.product.quantity
+            } %>
+               
+              </div>
+              <span class="text-muted">$ <%= totalPrice %> </span>
+            </li>
+            <% } %>
+         </ul>
+    
+          
+    </div>
+
+
+
+</div>
+
+
+
+</div>
+</div>
+</body>
+
+<%- include('../layouts/footer.ejs') %>
+
+
+<script>
+ 
+ $("#cartCounter").hide() // hiding the slide
+
+  </script>
+

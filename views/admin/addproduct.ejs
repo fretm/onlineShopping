@@ -1,0 +1,55 @@
+<%- include('../layouts/header.ejs') %>
+
+
+<%- include('../layouts/nav-admin.ejs') %>
+
+<div class="jumbotron">
+    <h5 class="display-3">Add Products!</h5> 
+    <form action="/admin/addproduct"  enctype="multipart/form-data" method="POST">
+        <div class="form-group">
+          <label for="title">Product Title</label>
+          <input type="text" class="form-control" name="title" placeholder="Enter Product Title" required>
+          <small id="TitleHelp" class="form-text text-muted">add products title here</small>
+        </div>
+
+        <div class="form-group">
+          <label for="title">Product photo</label>
+          <div class="input-group mb-3">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" name ='photo' id="inputGroupFile02">
+              <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+            </div>
+          </div>
+        </div>
+
+          <div class="form-group">
+            <label class="control-label">Price</label>
+            <div class="form-group">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input name='price' type="number" class="form-control" aria-label="Amount (to the nearest dollar)" required>
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Product Quantity</label>
+            <input type="number" class="form-control" name="quantity" placeholder="Enter Product Quantity" required>
+           
+          </div>
+        <div class="form-group">
+          <label for="exampleTextarea">Product Description</label>
+          <textarea class="form-control" name='description' id="editProdDescription" rows="3" spellcheck="false"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary float-right">Submit</button>
+      </form>
+            
+  </div>
+</div>
+</body>
+
+<%- include('../layouts/footer.ejs') %>

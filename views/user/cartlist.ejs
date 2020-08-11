@@ -1,0 +1,59 @@
+<%- include('../layouts/header.ejs') %>
+
+
+<%- include('../layouts/nav-user.ejs') %>
+
+
+
+  <% if (products.length==0) { %>
+    <div class="card mb-3 text-center border-0" style="max-width: 50rem;">
+      <img class="card-img-top" src="/images/emptycart.png" alt="emptycart">
+      <div class="card-body">
+        <a href="/user" class="btn btn-primary">Go Shopping</a>
+        
+      </div>
+    </div>
+  <% } %>
+
+  <div class="card-columns">
+    <!-- start of product display -->
+    <% for(let product of products) {%>
+    <div class="card text-center h-100">
+        <span class="badge badge-primary badge-pill float-right"><%= product.quantity%></span>
+      <img class="card-img-top" src="data:image/*;base64,<%= product.productId.photo%>" alt="<%= product.title%>">
+      <div class="card-body">
+        <h5 class="card-title">$<%= product.productId.price%> </h5>
+        <p class="card-text"><%= product.productId.title%></p>
+       
+      </div>
+      <div class="card-footer">
+        
+        <a  class="btn btn-danger" href='/user/deleteCartItem/<%= product.productId._id%>'>Delete</a>
+      </div>
+    </div>
+    <%  }%>
+    <!-- end of product display -->
+  </div>
+  
+  <div class="text-center" id='checkOutBtn' style="display: block;">
+    <a href="/user/payment">
+    <button class="btn btn-primary btn-lg text-center" type="submit">Continue to checkout</button></a></div>
+
+  </div>
+  </body>
+  <%- include('../layouts/footer.ejs') %>
+  <script>
+
+if( <%= products.length%> ==0){
+  $('#checkOutBtn').hide();
+ 
+  
+}else{
+
+  $('#cartCounter').text(<%= products.length%>) // display the number of item in the cart
+}
+
+
+
+
+  </script>

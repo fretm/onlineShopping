@@ -1,0 +1,131 @@
+<%- include('../layouts/header.ejs') %>
+
+
+<%- include('../layouts/nav-user.ejs') %>
+
+<div class="jumbotron m-0">
+
+<div class="card-columns">
+
+    <!-- start of product display -->
+    <% for(let product of products) {%>
+    <div class="card text-center h-100">
+      <img class="card-img-top" src="data:image/*;base64,<%= product.photo%>" alt="<%= product.title%>">
+      <div class="card-body">
+        <h5 class="card-title">$<%= product.price%> </h5>
+        <p class="card-text"><%= product.title%></p>
+       
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg"
+           data-photo="<%= product.photo%>"   data-title=<%= product.title%> data-price=<%= product.price%> 
+           data-quantity=<%= product.quantity%> data-description='<%= product.description%> '
+           id='productDetailBtn'>Detail</button>
+  
+          <form action="/user/addtocart" method="post">
+          <input type="text" value=<%= product._id%> name='id' hidden>
+          <button class="btn btn-outline-danger btn-sm" type="submit">Add to Cart</button>
+          </form>
+        
+      </div>
+    </div>
+    <%  }%>
+    <!-- end of product display -->
+  </div>
+</div>
+  </div>
+  </body>
+  <%- include('../layouts/footer.ejs') %>
+
+  <!-- product detail and edit modal  -->
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id='editndeletmodal'
+aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">e-shopping</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+<!-- product detail modal -->
+
+      <div style="display: inline;" id='detailDisplayCard'>
+        <div class="row">
+            <div class="col-8">
+        <div class="card text-center border-0">
+          <img class="card-img-top" id= 'itemImage' src="" alt="ItemImages">
+          <div class="card-body">
+            <h5 class="card-title" id='productPrice'>price</h5>
+            <p class="card-text" id='productTitle'>title</p>
+          </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card text-center border-0 ">
+          <strong><p id='productDescription'>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Facere nam voluptas harum tempore sequi deserunt nobis perferendis ullam eius ad quae tempora,
+              quas officia quos, omnis, dolore molestias expedita. Commodi?</p></strong>
+          <div class="card-body">
+            <h5 class="card-title">Rates</h5>
+          </div>
+
+        </div>
+    </div>
+    </div>
+    </div>  <!-- product detail modal -->
+
+
+      <!-- Edit forms -->
+   
+      <!-- Edit forms -->
+
+
+    </div>
+    <div class="modal-footer">
+
+      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+<script>
+
+ $('#cartCounter').text(<%= cartListCount%>) // display the number of item in the cart
+
+ $('#editndeletmodal').on('show.bs.modal', function (event) {
+     
+     let button = $(event.relatedTarget) // Button that triggered the modal
+     let modal = $(this)
+     let prodDescription = button.data('description') // Extract info from data-* attributes
+     let prodImgUrl = button.data('photo')
+     let prodTitle = button.data('title')
+     let prodPrice = button.data('price')
+ 
+ 
+ 
+     modal.find('#productPrice').text(`$${prodPrice}`)
+     modal.find('#productTitle').text(prodTitle)
+     $('#itemImage').attr("src", `data:image/*;base64,${prodImgUrl}`);
+     modal.find('#productDescription').text(prodDescription)
+
+     // // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+     // // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+     // var modal = $(this)
+     // modal.find('.modal-title').text('New message to ' + recipient)
+     // modal.find('.modal-body input').val(recipient) */
+ 
+ 
+   })
+
+
+
+</script>
